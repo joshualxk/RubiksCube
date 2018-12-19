@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rubik's Cube</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+    <script src="assets/js/rubikscube.js"></script>
+    <style>
+
+        html, body {
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            touch-action: none;
+            position: fixed;
+        }
+
+        .toggle_view {
+            position: absolute;
+            display: block;
+            margin-left: -45px;
+            margin-right: auto;
+            z-index: 2;
+            left: 50%;
+            top: 5%;
+            width: 90px;
+            height: 66px;
+        }
+
+        .btn {
+            position: absolute;
+            display: block;
+            margin-left: -25px;
+            margin-right: auto;
+            z-index: 2;
+            top: 80%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .border {
+            border-style: solid;
+        }
+
+        .flipx {
+            -moz-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            transform: scaleX(-1);
+            filter: FlipH;
+        }
+    </style>
+</head>
+<input id="btn-flatview" class="border toggle_view" type="image" src="assets/images/view-flat.png">
+<input id="btn-3dview" class="border toggle_view" type="image" src="assets/images/view-3d.png"
+       style="visibility: collapse">
+<input id="btn-backward" class="btn" type="image" src="assets/images/backward.png" style="left: 20%;">
+<input id="btn-reset" class="btn" type="image" src="assets/images/reset.png" style="left: 40%;">
+<input id="btn-shuffle" class="btn" type="image" src="assets/images/shuffle.png" style="left: 60%;">
+<input id="btn-forward" class="btn flipx" type="image" src="assets/images/backward.png" style="left: 80%;">
+<div id="WebGL-output">
+</div>
+
+<script>
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let rank = urlParams.get('rank') || 3;
+    rank = isNaN(rank) ? 3 : Math.floor(rank);
+    if (rank < 2) {
+        rank = 2;
+    } else if (rank > 6) {
+        rank = 6;
+    }
+
+    window.onload = () => {
+        init(rank);
+    }
+
+</script>
+</body>
+</html>
